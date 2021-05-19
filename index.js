@@ -1,6 +1,7 @@
 const http = require('http');
 const config = require('config');
 const express = require('express');
+const connectDB = require('./config/db');
 const socketio = require('socket.io');
 const cors = require('cors');
 const route = express.Router();
@@ -10,6 +11,8 @@ const { addUser, removeUser, getUser, getUsersInRoom } = require('./users');
 const router = require('./router');
 
 const app = express();
+
+connectDB();
 const server = http.createServer(app);
 const io = socketio(server);
 const {MongoClient} = require('mongodb');
