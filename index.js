@@ -1,26 +1,20 @@
 const http = require('http');
-const config = require('config');
 const express = require('express');
-const connectDB = require('./config/db');
 const socketio = require('socket.io');
 const cors = require('cors');
 const route = express.Router();
-const db = config.get('mongoURI')
 const { addUser, removeUser, getUser, getUsersInRoom } = require('./users');
 
 const router = require('./router');
 
 const app = express();
-
-connectDB();
 const server = http.createServer(app);
 const io = socketio(server);
 const {MongoClient} = require('mongodb');
 
-const client = new MongoClient(db, {
-  useNewUrlParser: true,
-  useUnifiedTopology: true,
-});
+const client = new MongoClient(
+  'mongodb+srv://BCH_SDP-2:BCH123456@cluster0.psmpy.mongodb.net/jm-chats?retryWrites=true&w=majority'
+);
 
 app.use(cors());
 app.use(router);
